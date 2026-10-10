@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Ambientes virtuais
+venv/
+.venv/
+env/
+
+# Banco de dados gerado pelo projeto
+db/*.db
+*.sqlite3
+
+# Editores
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
