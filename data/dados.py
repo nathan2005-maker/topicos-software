@@ -20,8 +20,9 @@ def quant_dados():
 
         if df[coluna].dtype in ["int64", "float64"]:
             print(f"Maior valor: {df[coluna].max()}")
-            print(f"Menor valor: {df[coluna].min()}\n\n\n")
+            print(f"Menor valor: {df[coluna].min()}")
 
+print("\n\n")
 
 def tratamento_data():
     
@@ -44,13 +45,13 @@ def tratamento_data():
     print(f"Tabagismo Unknown Depois: {(df['smoking_status'] == 'Unknown').sum()}")
     print(f"AVC Depois: {(df['stroke'] == 1).sum()}")
     print(f"Total de registros Depois: {len(df)}")
-    print(f"Linhas removidas: {len(dados) - len(df)}\n")
+    print(f"Linhas removidas: {len(dados) - len(df)}")
 
     return df
 
+print("\n\n")
 
-def analise_AVC():
-    df = dados
+def analise_AVC(df):
 
     #Groupby
     masculino = df[df["gender"] == "Male"]

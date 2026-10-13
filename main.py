@@ -1,15 +1,23 @@
-from data import dados
-from data import estatistics
+from data import dados, estatistics
 from db import dbcontext, consultas
 from db.pacientes import Paciente
 
 
 def main():
-    df_completo = dados.dados
+    # Análise inicial
+    dados.quant_dados()
+    df_completo = dados.dados.copy()
+    # Tratamento
     df_tratado = dados.tratamento_data()
 
-    # Cria a tabela e grava os dados tratados no SQLite
+
+    print("REGISTRO DE AVC")
+    dados.analise_AVC(df_tratado)
+
+    # SQLite
     dbcontext.criar_tabela()
+    consultas.limpar_tabela()
+
     for linha in df_tratado.itertuples(index=False):
         paciente = Paciente(
             idade=linha.age,
@@ -26,12 +34,18 @@ def main():
         )
         consultas.insert(paciente)
 
-    print(f"Pacientes no banco: {consultas.ccount_paciente()}")
-    print(f"Pacientes com AVC: {consultas.ccount_avc()}")
+    
 
+    print(f"Total de pacientes: {consultas.ccount_paciente()}")
+    print(f"Registro de AVC: {consultas.ccount_avc()}")
+    print("Glicose média por grupo de AVC (stroke 0 = sem AVC; 1 = com AVC):")
+    for stroke, total, media in consultas.level_glicose():
+        print(f"   stroke={stroke} | pacientes={total} | glicose média={media}")
+
+    # 4) Três gráficos
     estatistics.grafico_AVC(df_completo)
     estatistics.grafico_tabagismo(df_tratado)
-    estatistics.taxa_avc(df_completo)
+    estatistics.taxa_avc(df_tratado)
 
 
 if __name__ == "__main__":

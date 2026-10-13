@@ -58,11 +58,13 @@ def grafico_tabagismo(df):
 
 
 # Gráfico 3 – Taxa de AVC com e sem hipertensão / doença cardíaca
+# JUSTIFICATIVA DA ESCOLHA: Escolhemos comparar a taxa de AVC entre pacientes com e sem hipertensão e entre pacientes com e sem doença cardíaca,
+# para verificar se essas condições aparecem associadas ao registro de AVC. Usamos percentual em vez de quantidade porque os grupos têm tamanhos muito diferentes.
 def taxa_avc(df):
     plt.figure(figsize=(10, 6))
 
-    com_hiper = df['heart_disease'] == 1
-    sem_hiper = df['heart_disease'] == 0
+    com_hiper = df['hypertension'] == 1
+    sem_hiper = df['hypertension'] == 0
     com_doenca = df['heart_disease'] == 1
     sem_doenca = df['heart_disease'] == 0
 
